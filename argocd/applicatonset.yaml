@@ -6,19 +6,19 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: https://github.com/chapst1k/k3_homelab.git
+        repoURL: https://github.com/chapst1k/kr3_homelab.git
         revision: main
         directories:
-          - path: gitops-apps/*/overlays/production
+          - path: gitops-apps/*
   template:
     metadata:
       name: '{{path.basename}}'
     spec:
       project: default
       source:
-        repoURL: https://github.com/chapst1k/k3_homelab.git
+        repoURL: https://github.com/chapst1k/kr3_homelab.git
         targetRevision: main
-        path: '{{path}}'
+        path: '{{path}}/overlays/production'
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{path.basename}}'
