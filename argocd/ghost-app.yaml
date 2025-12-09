@@ -7,7 +7,7 @@ spec:
   project: default
   destination:
     namespace: ghost
-    server: https://kubernetes.default.ssvc
+    server: https://kubernetes.default.svc
   source:
     repoURL: https://github.com/chapst1k/k3_homelab.git
     targetRevision: main
