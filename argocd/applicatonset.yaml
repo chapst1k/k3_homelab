@@ -1,30 +1,32 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: apps
+  name: gitops-apps
   namespace: argocd
 spec:
   generators:
     - git:
-        repoURL: https://github.com/chapst1k/kr3_homelab.git
+        repoURL: git@github.com:chapst1k/k3_homelab.git
         revision: main
         directories:
-          - path: gitops-apps/*
+          - path: "gitops-apps/*/overlays/*"
   template:
     metadata:
-      name: '{{path.basename}}'
+      name: "{{path[1]}}-{{path[3]}}" 
+      # Example:
+      # path = gitops-apps/ghost/overlays/production
+      # path[1] = ghost
+      # path[3] = production
     spec:
       project: default
       source:
-        repoURL: https://github.com/chapst1k/kr3_homelab.git
+        repoURL: git@github.com:chapst1k/k3_homelab.git
         targetRevision: main
-        path: '{{path}}/overlays/production'
+        path: "{{path}}"
       destination:
         server: https://kubernetes.default.svc
-        namespace: '{{path.basename}}'
+        namespace: default
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
-        syncOptions:
-          - CreateNamespace=true

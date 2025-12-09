@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: ghost
-        image: bitnami/ghost:latest
+        image: ghost:5-alpine
         ports:
         - containerPort: 2368
 

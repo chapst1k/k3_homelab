@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+data:
+  repositories: |
+    - url: git@github.com:chapst1k/k3_homelab.git
+      type: git
+      sshPrivateKeySecret:
+        name: repo-ssh
+        key: sshPrivateKey

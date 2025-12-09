@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-repo-server
+  namespace: argocd
+spec:
+  template:
+    spec:
+      volumes:
+        - name: ssh-key
+          secret:
+            secretName: argocd-repo-server-ssh
+      containers:
+        - name: argocd-repo-server
+          volumeMounts:
+            - name: ssh-key
+              mountPath: /home/argocd/.ssh/id_ed25519
+              subPath: sshPrivateKey
+              readOnly: true

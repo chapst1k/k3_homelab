@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-repo-server
+  namespace: argocd
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: ssh-setup
+          $patch: delete
+      containers:
+        - name: argocd-repo-server
+          lifecycle:
+            $patch: delete
+          volumeMounts:
+            - name: home-argocd
+              $patch: delete
+            - name: ssh-key
+              $patch: delete
+      volumes:
+        - name: home-argocd
+          $patch: delete
+        - name: ssh-key
+          $patch: delete
