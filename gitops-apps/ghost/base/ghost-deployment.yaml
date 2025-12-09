@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghost
+  labels:
+    app: ghost
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ghost
+  template:
+    metadata:
+      labels:
+        app: ghost
+    spec:
+      containers:
+      - name: ghost
+        image: bitnami/ghost:latest
+        ports:
+        - containerPort: 2368
+
+        env:
+        - name: GHOST_HOST
+          value: blog.yourdomain.com
+        - name: GHOST_PROTOCOL
+          value: https
+
+        - name: GHOST_DATABASE_CLIENT
+          value: mysql
+        - name: GHOST_DATABASE_HOST
+          value: mariadb.database.svc.cluster.local
+        - name: GHOST_DATABASE_PORT
+          value: "3306"
+        - name: GHOST_DATABASE_NAME
+          value: ghost
+        - name: GHOST_DATABASE_USER
+          value: ghost
+        - name: GHOST_DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secret
+              key: mariadb-password
+
+        volumeMounts:
+        - name: ghost-content
+          mountPath: /bitnami/ghost
+
+      volumes:
+      - name: ghost-content
+        persistentVolumeClaim:
+          claimName: ghost-content

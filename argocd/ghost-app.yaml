@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ghost
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    namespace: ghost
+    server: https://kubernetes.default.ssvc
+  source:
+    repoURL: https://github.com/chapst1k/k3_homelab.git
+    targetRevision: main
+    path: gitops-apps/ghost/overlays/production
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

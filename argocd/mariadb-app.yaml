@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mariadb
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    namespace: database
+    server: https://kubernetes.default.svc
+  source:
+    repoURL: https://github.com/chapst1k/k3_homelab.git
+    targetRevision: main
+    path: gitops-apps/mariadb/overlays/production
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=true
