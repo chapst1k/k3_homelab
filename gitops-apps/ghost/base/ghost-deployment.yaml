@@ -21,22 +21,27 @@ spec:
         - containerPort: 2368
 
         env:
-        - name: GHOST_HOST
-          value: zmartin.me
-        - name: GHOST_PROTOCOL
-          value: https
+        # Public URL for Ghost
+        - name: url
+          value: https://zmartin.me
 
-        - name: GHOST_DATABASE_CLIENT
+        # Database configuration (must use double underscores)
+        - name: database__client
           value: mysql
-        - name: GHOST_DATABASE_HOST
-          value: mariadb.database.svc.cluster.local
-        - name: GHOST_DATABASE_PORT
+
+        - name: database__connection__host
+          value: mariadb.default.svc.cluster.local
+
+        - name: database__connection__port
           value: "3306"
-        - name: GHOST_DATABASE_NAME
+
+        - name: database__connection__database
           value: ghost
-        - name: GHOST_DATABASE_USER
+
+        - name: database__connection__user
           value: ghost
-        - name: GHOST_DATABASE_PASSWORD
+
+        - name: database__connection__password
           valueFrom:
             secretKeyRef:
               name: mariadb-secret
