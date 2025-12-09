@@ -1,0 +1,73 @@
+# ------------------------------------------------------------------------------------
+# GITOPS / KUBERNETES / KUSTOMIZE REPO IGNORE RULES
+# ------------------------------------------------------------------------------------
+
+# Kubernetes local config
+kubeconfig
+*.kubeconfig
+.kube/
+.kube
+
+# Sealed Secrets private keys (NEVER commit!)
+sealed-secrets-key*
+*.pem
+*.key
+
+# Kustomize build directories
+kustomize/
+.build/
+.tmp/
+*.built.yaml
+
+# Kustomize auto-generated files
+.kustomize*
+*/.kustomize*
+
+# Helm caches
+charts/
+Chart.lock
+*.tgz
+
+# Terraform (if used later)
+.tfstate
+.tfstate.*
+.terraform/
+terraform.tfvars
+
+# Docker local build / compose noise
+docker-compose.override.yml
+docker-compose.local.yml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node projects (if frontend included)
+node_modules/
+dist/
+build/
+
+# Python caches (for scripts/tools)
+__pycache__/
+*.pyc
+
+# Logs
+*.log
+
+# Python virtualenvs
+venv/
+env/
+
+# Secrets or values accidentally created locally
+*secret*.yaml
+*values*.yaml
+
+# Local tooling backups
+*.bak
+*.tmp
