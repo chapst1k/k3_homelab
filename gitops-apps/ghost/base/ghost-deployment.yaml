@@ -22,7 +22,7 @@ spec:
 
         env:
         - name: GHOST_HOST
-          value: blog.yourdomain.com
+          value: zmartin.me
         - name: GHOST_PROTOCOL
           value: https
 
