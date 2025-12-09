@@ -1,24 +1,27 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ghost
-  namespace: ghost
+  name: argocd-server-ingress
+  namespace: argocd
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
   ingressClassName: traefik
+
   tls:
-  - hosts:
-      - zmartin.me
-    secretName: ghost-tls
+    - hosts:
+        - argocd.zmartin.me
+      secretName: argocd-tls
+
   rules:
-  - host: zmartin.me
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: ghost
-            port:
-              number: 80
+    - host: argocd.zmartin.me
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  number: 80
