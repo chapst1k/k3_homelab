@@ -4,6 +4,6 @@ namespace: cloudflare
 
 resources:
   - secret.yaml
-  - config.yaml
+  - configMap.yaml
   - deployment.yaml
   - service.yaml
