@@ -15,13 +15,13 @@ spec:
       secretName: ghost-tls
 
   rules:
-    - host: ghost.zmartin.me
+    - host: zmartin.me
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: ghost-server
+                name: ghost
                 port:
                   number: 80
