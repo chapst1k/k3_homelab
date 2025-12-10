@@ -29,9 +29,12 @@ configMapGenerator:
   - name: grafana-dashboards
     namespace: monitoring
     files:
+      - dashboards/traefik.json
+      - dashboards/website.json
+      - dashboards/postgres.json
       - dashboards/node-exporter.json
-      - dashboards/loki-log-browser.json
-      - dashboards/prometheus-overview.json
+      - dashboards/k8s.json
+      - dashboards/coredns.json
 
 generatorOptions:
   disableNameSuffixHash: true
