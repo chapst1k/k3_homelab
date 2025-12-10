@@ -11,6 +11,7 @@ resources:
   - prometheus-service.yaml
   - prometheus-ingress.yaml
   - prometheus-pvc.yaml
+  - prometheus-rbac.yaml
 
   # Loki
   - loki-configmap.yaml
