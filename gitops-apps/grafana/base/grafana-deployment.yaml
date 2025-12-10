@@ -32,9 +32,6 @@ spec:
             - name: datasources
               mountPath: /etc/grafana/provisioning/datasources
 
-            # Provisioned dashboards
-            - name: dashboards
-              mountPath: /var/lib/grafana/dashboards
 
       volumes:
         # PVC
