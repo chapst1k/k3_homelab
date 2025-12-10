@@ -1,0 +1,112 @@
+          - type: custom-api
+            title: Unifi
+            cache: 1m
+            allow-insecure: true
+            url: https://192.168.1.1/proxy/network/api/stat/sites
+            headers:
+              X-API-KEY: 7KoxTuynhpHWefSi_8OxTUS6xOb2Sh3o
+              Accept: application/json
+            template: |
+              <style>
+                .list-horizontal-text.no-bullets-unifi > *:not(:last-child)::after {
+                    content: none !important;
+                }
+                .list-horizontal-text.no-bullets-unifi > *:not(:last-child) {
+                  margin-right: 1em;
+                }
+              </style>
+              {{ range .JSON.Array "data" }}
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <div style="width:40px; height:40px; flex-shrink:0; display:flex; justify-content:center; align-items:center; overflow:hidden;">
+                    <img src="https://cdn.jsdelivr.net/gh/selfhst/icons/svg/ubiquiti-unifi-light.svg" width="24" height="24" style="object-fit:contain;">
+                  </div>
+                  <div style="flex-grow:1; min-width:0;">
+                    <a class="size-h4 block text-truncate color-highlight">
+                      {{ .String "health.#(subsystem=\"wan\").gw_name" }}
+                      {{ if eq (.String "health.#(subsystem=\"wan\").status") "ok" }}
+                      <span
+                        style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--color-positive); display: inline-block; vertical-align: middle;"
+                        data-popover-type="text"
+                        data-popover-text="WAN Connected"
+                      ></span>
+                      {{ else }}
+                      <span
+                        style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--color-negative); display: inline-block; vertical-align: middle;"
+                        data-popover-type="text"
+                        data-popover-text="WAN Disconnected"
+                      ></span>
+                      {{ end }}
+                    </a>
+                    <ul class="list-horizontal-text no-bullets-unifi">
+                      <li data-popover-type="text" data-popover-text="Uptime: {{ printf "%.1f" (div (.Float "health.#(subsystem=\"wan\").gw_system-stats.uptime") 86400) }} Days">
+                        <p style="display:inline-flex;align-items:center;">
+                          <!-- uptime icon -->
+                          {{ printf "%.1f" (div (.Float "health.#(subsystem=\"wan\").gw_system-stats.uptime") 86400) }}
+                        </p>
+                      </li>
+                      <li data-popover-type="text" data-popover-text="Wired clients: {{ .Int "health.#(subsystem=\"lan\").num_user" }}">
+                        <p style="display:inline-flex;align-items:center;">
+                          <!-- wired icon -->
+                          {{ .Int "health.#(subsystem=\"lan\").num_user" }}
+                        </p>
+                      </li>
+                      <li data-popover-type="text" data-popover-text="Wireless clients: {{ .Int "health.#(subsystem=\"wlan\").num_user" }}">
+                        <p style="display:inline-flex;align-items:center;">
+                          <!-- wifi icon -->
+                          {{ .Int "health.#(subsystem=\"wlan\").num_user"  }}
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="margin-block-2" style="margin-top: 1em">
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div data-popover-type="html">
+                      <div data-popover-html>
+                        <div>
+                          {{ range .Array "health.#(subsystem=\"wan\").uptime_stats.WAN.monitors" }}
+                          <div class="flex">
+                            <div class="size-h5">{{ .String "target" }}</div>
+                            <div class="value-separator"></div>
+                            <div class="color-highlight text-very-compact">
+                              <span>{{ .Int "latency_average" }}</span>
+                              <span class="color-base size-h5">ms</span>
+                            </div>
+                          </div>
+                          {{ end }}
+                        </div>
+                      </div>
+                      <div class="size-h5">Latency</div>
+                      <div class="size-h3 color-highlight">
+                        {{ .Int "health.#(subsystem=\"wan\").uptime_stats.WAN.latency_average" }}<span class="color-base"> ms</span>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="size-h5">WAN IP</div>
+                      <div class="size-h3 color-highlight">{{ .String "health.#(subsystem=\"wan\").wan_ip" }}</div>
+                    </div>
+                    <div>
+                      <div class="flex items-end size-h5">
+                        <div>Gateway CPU</div>
+                        <div class="color-highlight margin-left-auto text-very-compact">
+                          {{ printf "%.0f" (.Float "health.#(subsystem=\"wan\").gw_system-stats.cpu") }}<span class="color-base"> %</span>
+                        </div>
+                      </div>
+                      <div class="progress-bar progress-bar-combined">
+                        <div class="progress-value{{ if ge (.Float "health.#(subsystem=\"wan\").gw_system-stats.cpu" | toInt) 80 }} progress-value-notice{{ end }}" style="--percent: {{ .Float "health.#(subsystem=\"wan\").gw_system-stats.cpu" | toInt | formatNumber }}"></div>
+                      </div>
+                    </div>
+                    <div class="flex-1">
+                      <div class="flex items-end size-h5">
+                        <div>Gateway RAM</div>
+                        <div class="color-highlight margin-left-auto text-very-compact">
+                          {{ printf "%.0f" (.Float "health.#(subsystem=\"wan\").gw_system-stats.mem") }}<span class="color-base">%</span>
+                        </div>
+                      </div>
+                      <div class="progress-bar progress-bar-combined">
+                        <div class="progress-value{{ if ge (.Float "health.#(subsystem=\"wan\").gw_system-stats.mem" | toInt) 80 }} progress-value-notice{{ end }}" style="--percent: {{ .Float "health.#(subsystem=\"wan\").gw_system-stats.mem" | toInt | formatNumber }}"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {{ end }}
