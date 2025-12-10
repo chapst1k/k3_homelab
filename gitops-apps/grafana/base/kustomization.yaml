@@ -3,18 +3,23 @@ kind: Kustomization
 namespace: monitoring
 resources:
   - namespace.yaml
+
+  # Prometheus
   - prometheus-configmap.yaml
   - prometheus-deployment.yaml
   - prometheus-service.yaml
   - prometheus-ingress.yaml
+  - prometheus-pvc.yaml
+
+  # Loki
   - loki-configmap.yaml
   - loki-statefulset.yaml
   - loki-service.yaml
   - loki-ingress.yaml
+
+  # Grafana
   - grafana-config-datasources.yaml
   - grafana-deployment.yaml
   - grafana-service.yaml
   - grafana-ingress.yaml
   - grafana-pvc.yaml
-  - grafana-deployment.yaml
-  - grafana-service.yaml
