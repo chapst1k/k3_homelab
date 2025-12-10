@@ -4,7 +4,7 @@ namespace: cloudflare
 
 resources:
   - cloudflared-token-sealed.yaml
-  - configMap.yaml
+  - config.yaml
   - deployment.yaml
   - service.yaml
   - namespace.yaml
