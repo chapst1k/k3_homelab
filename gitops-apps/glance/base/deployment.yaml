@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: glance
-          image: ghcr.io/glanceapp/glance:latest
+          image: glanceapp/glance:latest
           args: ["--config", "/etc/glance/config/glance.yml"]
           ports:
             - containerPort: 8080
