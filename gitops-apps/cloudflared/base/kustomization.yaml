@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: cloudflare
 
 resources:
-  - cloudflare-token-sealed.yaml
+  - cloudflared-token-sealed.yaml
   - configMap.yaml
   - deployment.yaml
   - service.yaml
