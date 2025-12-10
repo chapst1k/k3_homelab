@@ -5,5 +5,9 @@ namespace: glance
 resources:
   - ../../base
 
-patchesStrategicMerge:
-  - patches.yaml
+patches:
+  - path: patches.yaml
+    target:
+      kind: Ingress
+      name: glance
+      namespace: glance
