@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: glance
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/chapst1k/k3_homelab.git
+    targetRevision: main
+    path: gitops-apps/glance/overlays/production
+  destination:
+    namespace: glance
+    name: in-cluster
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
