@@ -9,7 +9,7 @@ resources:
 configMapGenerator:
   - name: glance-config
     files:
-      - config/config.yaml
+      - config/config.yml
       - config/proxmox.yml
       - config/unifi.yml
 
