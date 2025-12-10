@@ -9,6 +9,9 @@ resources:
 configMapGenerator:
   - name: glance-config
     files:
-      - config/
+      - config/config.yaml
+      - config/proxmox.yml
+      - config/unifi.yml
+
 generatorOptions:
   disableNameSuffixHash: true
