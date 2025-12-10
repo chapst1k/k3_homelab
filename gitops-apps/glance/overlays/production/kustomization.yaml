@@ -3,7 +3,7 @@ kind: Kustomization
 namespace: glance
 
 resources:
-  - ../base
+  - ../../base
 
 patches:
   - path: patches.yaml
