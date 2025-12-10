@@ -29,5 +29,3 @@ resources:
 # Prevent hash suffix
 generatorOptions:
   disableNameSuffixHash: true
-generatorOptions:
-  disableNameSuffixHash: true
