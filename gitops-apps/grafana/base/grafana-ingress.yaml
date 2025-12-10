@@ -13,7 +13,7 @@ spec:
   tls:
     - hosts:
         - grafana.zmartin.me
-      secretName: grafana-tls
+      secretName: wildcard-zmartin-me-tls
 
   rules:
     - host: grafana.zmartin.me
