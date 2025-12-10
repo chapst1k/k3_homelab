@@ -15,26 +15,26 @@ data:
       # 1. Scrape K3s API server
       # ---------------------------------------------
       - job_name: 'kubernetes-apiservers'
-        scheme: https
         kubernetes_sd_configs:
         - role: endpoints
+        scheme: https
         bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
         tls_config:
           ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
           insecure_skip_verify: true
         relabel_configs:
-        - source_labels: [__meta_kubernetes_service_name, __meta_kubernetes_namespace]
-          action: keep
+        - action: keep
+          source_labels: [__meta_kubernetes_service_name, __meta_kubernetes_namespace]
           regex: kubernetes;kube-system
 
       # ---------------------------------------------
-      # 2. Scrape Kubelets (Node metrics)
+      # 2. Scrape Kubelet
       # ---------------------------------------------
       - job_name: 'kubernetes-kubelet'
+        kubernetes_sd_configs:
+        - role: node
         scheme: https
         metrics_path: /metrics
-        kubernetes_sd_configs:
-        - role: node
         bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
         tls_config:
           insecure_skip_verify: true
@@ -43,13 +43,13 @@ data:
           regex: __meta_kubernetes_node_label_(.+)
 
       # ---------------------------------------------
-      # 3. Scrape Kubelet cAdvisor (container metrics)
+      # 3. Scrape cAdvisor
       # ---------------------------------------------
       - job_name: 'kubelet-cadvisor'
-        scheme: https
-        metrics_path: /metrics/cadvisor
         kubernetes_sd_configs:
         - role: node
+        scheme: https
+        metrics_path: /metrics/cadvisor
         bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
         tls_config:
           insecure_skip_verify: true
@@ -58,18 +58,23 @@ data:
           regex: __meta_kubernetes_node_label_(.+)
 
       # ---------------------------------------------
-      # 4. Scrape CoreDNS
+      # 4. Scrape CoreDNS (port 9153)
       # ---------------------------------------------
       - job_name: 'coredns'
         kubernetes_sd_configs:
         - role: endpoints
         relabel_configs:
-        - source_labels: [__meta_kubernetes_service_name, __meta_kubernetes_namespace]
+        - action: keep
+          source_labels: [__meta_kubernetes_service_name, __meta_kubernetes_namespace]
           regex: kube-dns;kube-system
-          action: keep
+
+        # Keep only metrics port 9153
+        - action: keep
+          source_labels: [__meta_kubernetes_endpoint_port_name]
+          regex: metrics
 
       # ---------------------------------------------
-      # 5. Scrape Node Exporter DaemonSet
+      # 5. Scrape Node Exporter
       # ---------------------------------------------
       - job_name: 'node-exporter'
         kubernetes_sd_configs:
@@ -78,25 +83,35 @@ data:
         - action: keep
           source_labels: [__meta_kubernetes_pod_label_app]
           regex: node-exporter
-        - source_labels: [__meta_kubernetes_pod_ip]
+        - action: replace
+          source_labels: [__meta_kubernetes_pod_ip]
+          replacement: "$1:9100"
           target_label: __address__
-          replacement: $1:9100
 
       # ---------------------------------------------
-      # 6. Scrape Pods with annotations
+      # 6. Scrape Pods (opt-in)
       # ---------------------------------------------
       - job_name: 'kubernetes-pods'
         kubernetes_sd_configs:
         - role: pod
+
         relabel_configs:
+
+        # Only annotated pods
         - action: keep
           source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
           regex: "true"
-        - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_port]
-          action: replace
+
+        # Build POD_IP:PROM_PORT
+        - action: replace
+          source_labels:
+            [__meta_kubernetes_pod_ip, __meta_kubernetes_pod_annotation_prometheus_io_port]
+          regex: "(.+);(.+)"
+          replacement: "$1:$2"
           target_label: __address__
-          regex: (.+)
-        - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
-          action: replace
+
+        # Optional custom metrics path
+        - action: replace
+          source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
           target_label: __metrics_path__
           regex: (.+)
