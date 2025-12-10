@@ -8,5 +8,5 @@ spec:
     app: cloudflared
   ports:
     - name: metrics
-      port:  metrics
-      targetPort:  metrics
+      port: 9090
+      targetPort: 9090
