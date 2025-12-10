@@ -26,15 +26,34 @@ resources:
   - grafana-pvc.yaml
 
 configMapGenerator:
-  - name: grafana-dashboards
+  - name: grafana-dashboard-node
+    namespace: monitoring
+    files:
+      - dashboards/node-exporter.json
+
+  - name: grafana-dashboard-k8s
+    namespace: monitoring
+    files:
+      - dashboards/k8s.json
+
+  - name: grafana-dashboard-traefik
     namespace: monitoring
     files:
       - dashboards/traefik.json
+
+  - name: grafana-dashboard-loki
+    namespace: monitoring
+    files:
+      - dashboards/loki.json
+
+  - name: grafana-dashboard-custom
+    namespace: monitoring
+    files:
       - dashboards/website.json
       - dashboards/postgres.json
-      - dashboards/node-exporter.json
-      - dashboards/k8s.json
-      - dashboards/coredns.json
 
+# Prevent hash suffix
+generatorOptions:
+  disableNameSuffixHash: true
 generatorOptions:
   disableNameSuffixHash: true
