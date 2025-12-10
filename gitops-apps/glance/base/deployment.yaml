@@ -16,7 +16,7 @@ spec:
       containers:
         - name: glance
           image: glanceapp/glance:latest
-          args: ["--config", "/etc/glance/config/glance.yml"]
+          args: ["--config", "/etc/glance/config/config.yml"]
           ports:
             - containerPort: 8080
           volumeMounts:
