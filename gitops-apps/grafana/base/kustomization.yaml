@@ -26,6 +26,9 @@ resources:
   - grafana-ingress.yaml
   - grafana-pvc.yaml
 
+  # Node Exporter
+  - node-exporter.yaml
+
 
 # Prevent hash suffix
 generatorOptions:
