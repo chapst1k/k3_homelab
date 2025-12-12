@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: git@github.com:chapst1k/k3_homelab.git
+    repoURL: https://github.com/chapst1k/k3_homelab.git
     targetRevision: main
     path: gitops-apps/vaultwarden/overlays/production
   destination:
