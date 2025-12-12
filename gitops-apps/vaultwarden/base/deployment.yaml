@@ -12,9 +12,18 @@ spec:
       labels:
         app: vaultwarden
     spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: vaultwarden
           image: vaultwarden/server:latest
+          lifecycle:
+            postStart:
+              exec:
+                command: ["sh", "-c", "sleep 3"]
           ports:
             - containerPort: 80
           env:
