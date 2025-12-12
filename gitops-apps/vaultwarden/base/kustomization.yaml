@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: vaultwarden
 
 resources:
+  - namespace.yaml
   - deployment.yaml
   - service.yaml
   - pvc.yaml
