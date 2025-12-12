@@ -17,13 +17,27 @@ spec:
         runAsGroup: 1000
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+
+      initContainers:
+        - name: wait-for-data
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              echo "Waiting for /data to be writable..."
+              until touch /data/.init-test 2>/dev/null; do
+                sleep 1
+              done
+              rm -f /data/.init-test
+              echo "/data is ready"
+          volumeMounts:
+            - name: data
+              mountPath: /data
+
       containers:
         - name: vaultwarden
           image: vaultwarden/server:latest
-          lifecycle:
-            postStart:
-              exec:
-                command: ["sh", "-c", "sleep 3"]
           ports:
             - containerPort: 80
           env:
@@ -38,6 +52,7 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /data
+
       volumes:
         - name: data
           persistentVolumeClaim:
