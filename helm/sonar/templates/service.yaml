@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "sonar.fullname" . }}
+  labels:
+    app: {{ include "sonar.name" . }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    app: {{ include "sonar.name" . }}
+  ports:
+    - name: http
+      port: {{ int .Values.service.portHttp }}
+      targetPort: {{ int .Values.service.portHttp }}
+      protocol: TCP
+
+    {{- $udpStart := int .Values.service.udpStart }}
+    {{- $udpEnd := int .Values.service.udpEnd }}
+    {{- $one := int 1 }}
+    {{- $rangeLen := int (add $one (sub $udpEnd $udpStart)) }}
+
+    {{- range $i := until $rangeLen }}
+    - name: udp-{{ add $udpStart (int $i) }}
+      port: {{ add $udpStart (int $i) }}
+      targetPort: {{ add $udpStart (int $i) }}
+      protocol: UDP
+    {{- end }}

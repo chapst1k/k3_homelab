@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "sonar.fullname" . }}
+  labels:
+    app: {{ include "sonar.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "sonar.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "sonar.name" . }}
+    spec:
+      containers:
+        - name: sonar
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ int .Values.service.portHttp }}
+              protocol: TCP
+
+            {{- $udpStart := int .Values.service.udpStart }}
+            {{- $udpEnd := int .Values.service.udpEnd }}
+            {{- $one := int 1 }}
+            {{- $rangeLen := int (add $one (sub $udpEnd $udpStart)) }}
+
+            {{- range $i := until $rangeLen }}
+            - containerPort: {{ add $udpStart (int $i) }}
+              protocol: UDP
+              name: udp-{{ add $udpStart (int $i) }}
+            {{- end }}
+
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
