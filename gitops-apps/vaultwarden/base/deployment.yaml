@@ -12,6 +12,9 @@ spec:
       labels:
         app: vaultwarden
     spec:
+      securityContext:
+        fsGroup: 1000
+    spec:
       containers:
         - name: vaultwarden
           image: vaultwarden/server:latest
@@ -25,7 +28,7 @@ spec:
             - name: WEBSOCKET_ENABLED
               value: "true"
             - name: DATABASE_URL
-              value: "sqlite:////data/db.sqlite3"
+              value: "sqlite:///data/db.sqlite3"
           volumeMounts:
             - name: data
               mountPath: /data
