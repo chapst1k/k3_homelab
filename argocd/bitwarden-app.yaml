@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bitwarden
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:chapst1k/k3_homelab.git
+    path: gitops-apps/bitwarden/overlays/production
+    targetRevision: main
+    helm:
+      releaseName: bitwarden
+      valueFiles:
+        - ../../base/values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: bitwarden
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
