@@ -47,6 +47,8 @@ spec:
               value: "false"
             - name: WEBSOCKET_ENABLED
               value: "true"
+            - name: DATA_FOLDER
+              value: "/data"  
             - name: DATABASE_URL
               value: "sqlite:///data/db.sqlite3"
           volumeMounts:
