@@ -12,9 +12,6 @@ spec:
       labels:
         app: vaultwarden
     spec:
-      securityContext:
-        fsGroup: 1000
-    spec:
       containers:
         - name: vaultwarden
           image: vaultwarden/server:latest
