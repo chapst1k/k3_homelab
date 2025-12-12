@@ -11,7 +11,7 @@ spec:
   tls:
     - hosts:
         - auth.zmartin.me
-      secretName: authentik-tls
+      secretName: wildcard-zmartin-me-tls
   rules:
     - host: auth.zmartin.me
       http:
