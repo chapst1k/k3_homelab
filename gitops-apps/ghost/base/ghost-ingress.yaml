@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - web
   routes:
-    - match: Host(`zmartin.me`)
+    - match: Host(`zmartin.me`) && PathPrefix(`/`)
       kind: Rule
       services:
         - name: ghost
@@ -15,3 +15,4 @@ spec:
       middlewares:
         - name: no-redirect
           namespace: ghost
+
