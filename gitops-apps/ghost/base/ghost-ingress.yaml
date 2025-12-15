@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: ghost-server-ingress
   namespace: ghost
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: ghost-no-redirect@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
