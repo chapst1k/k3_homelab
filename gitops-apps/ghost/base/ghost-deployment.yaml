@@ -25,6 +25,9 @@ spec:
         # Public URL for Ghost
         - name: url
           value: https://zmartin.me
+      
+        - name: server__trustProxy
+          value: "true"
 
         # Database configuration (must use double underscores)
         - name: database__client
