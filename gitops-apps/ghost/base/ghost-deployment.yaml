@@ -50,7 +50,7 @@ spec:
 
         volumeMounts:
         - name: ghost-content
-          mountPath: /bitnami/ghost
+          mountPath: /var/lib/ghost/content
 
       volumes:
       - name: ghost-content

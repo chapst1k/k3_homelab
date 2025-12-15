@@ -3,17 +3,8 @@ kind: Ingress
 metadata:
   name: ghost-server-ingress
   namespace: ghost
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
   ingressClassName: traefik
-
-  tls:
-    - hosts:
-        - zmartin.me
-      secretName: ghost-tls
-
   rules:
     - host: zmartin.me
       http:
