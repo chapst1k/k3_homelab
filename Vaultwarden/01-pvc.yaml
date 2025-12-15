@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: vaultwarden-data-pvc
+  namespace: vaultwarden
+spec:
+  storageClassName: longhorn  # <-- Add your own storage class or remove the line
+  accessModes: [ReadWriteOnce]
+  resources: { requests: { storage: 5Gi } }
