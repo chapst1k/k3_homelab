@@ -136,8 +136,8 @@ pages:
 
           - type: dns-stats
             service: pihole-v6
-            url: https://pi.zmartin.me/
-            password: An@rchy2323180!!@!!
+            url: https://192.168.1.243/
+            password: ${PIHOLE_PASSWORD}
 
   # # - name: Docker
   # #   columns:

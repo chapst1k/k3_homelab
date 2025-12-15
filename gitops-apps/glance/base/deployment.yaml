@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: glance
-
 spec:
   replicas: 1
   selector:
@@ -19,6 +18,9 @@ spec:
           args: ["--config", "/etc/glance/config/config.yml"]
           ports:
             - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: glance-secrets
           volumeMounts:
             - name: config
               mountPath: /etc/glance/config
