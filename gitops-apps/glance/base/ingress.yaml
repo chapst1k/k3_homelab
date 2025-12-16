@@ -5,6 +5,8 @@ metadata:
   namespace: glance
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.middlewares: glance-glance-forward@kubernetescrd
+
 spec:
   ingressClassName: traefik
   tls:
