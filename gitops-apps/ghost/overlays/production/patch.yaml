@@ -37,4 +37,4 @@ spec:
                   key: password
 
             - name: mail__from
-              value: '"Ghost Admin" <no-reply@zmartin.me>'
+              value: 'no-reply@zmartin.me'
