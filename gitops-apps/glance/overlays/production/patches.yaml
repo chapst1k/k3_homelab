@@ -9,5 +9,3 @@ spec:
     - hosts:
         - glance.zmartin.me
       secretName: wildcard-zmartin-me-tls
-  rules:
-    - host: glance.zmartin.me
