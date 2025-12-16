@@ -37,7 +37,33 @@ spec:
 
         - name: server__port
           value: "2368" 
+        - name: mail__transport
+          value: SMTP
 
+        - name: mail__options__host
+          value: mail.smtp2go.com
+
+        - name: mail__options__port
+          value: "587"
+
+        - name: mail__options__secure
+          value: "starttls"   # true only for port 465
+
+        - name: mail__options__auth__user
+          valueFrom:
+          secretKeyRef:
+          name: ghost-smtp
+          key: username
+
+        - name: mail__options__auth__pass
+          valueFrom:
+          secretKeyRef:
+          name: ghost-smtp
+          key: password
+
+        - name: mail__from
+          value: '"no-reply@zmartin.me'
+        
         # Database configuration (must use double underscores)
         - name: database__client
           value: mysql
