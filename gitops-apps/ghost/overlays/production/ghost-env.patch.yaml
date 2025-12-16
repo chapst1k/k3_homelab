@@ -44,4 +44,7 @@
   path: /spec/template/spec/containers/0/env/-
   value:
     name: mail__from
-    value: 'no-reply@zmartin.me'
+    valueFrom:
+      secretKeyRef:
+        name: ghost-smtp
+        key: from
