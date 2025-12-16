@@ -2,11 +2,12 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: glance
+  namespace: glance
   
 spec:
   tls:
     - hosts:
         - glance.zmartin.me
-      secretName: glance-tls
+      secretName: wildcard-zmartin-me-tls
   rules:
     - host: glance.zmartin.me
