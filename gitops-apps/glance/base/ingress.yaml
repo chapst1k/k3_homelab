@@ -11,7 +11,7 @@ spec:
   tls:
     - hosts:
         - glance.zmartin.me
-      secretName: glance-tls
+      secretName: wildcard-zmartin-me-tls
   rules:
     - host: glance.zmartin.me
       http:

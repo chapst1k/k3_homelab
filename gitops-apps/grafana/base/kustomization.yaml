@@ -29,6 +29,7 @@ resources:
   # Node Exporter
   - node-exporter.yaml
 
+  - certificate.yaml
 
 # Prevent hash suffix
 generatorOptions:
