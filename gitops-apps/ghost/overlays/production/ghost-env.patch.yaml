@@ -1,0 +1,47 @@
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: mail__transport
+    value: SMTP
+
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: mail__options__host
+    value: mail.smtp2go.com
+
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: mail__options__port
+    value: "587"
+
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: mail__options__secure
+    value: "false"
+
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: mail__options__auth__user
+    valueFrom:
+      secretKeyRef:
+        name: ghost-smtp
+        key: username
+
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: mail__options__auth__pass
+    valueFrom:
+      secretKeyRef:
+        name: ghost-smtp
+        key: password
+
+- op: add
+  path: /spec/template/spec/containers/0/env/-
+  value:
+    name: mail__from
+    value: 'no-reply@zmartin.me'
