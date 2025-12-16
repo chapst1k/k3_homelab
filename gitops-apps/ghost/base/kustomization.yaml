@@ -4,5 +4,4 @@ kind: Kustomization
 resources:
   - ghost-deployment.yaml
   - ghost-service.yaml
-  - ghost-ingress.yaml
   - ghost-pvc.yaml
