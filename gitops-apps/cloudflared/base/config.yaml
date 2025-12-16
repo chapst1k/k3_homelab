@@ -10,6 +10,6 @@ data:
 
     ingress:
       - hostname: zmartin.me
-        service: http://traefik.traefik.svc.cluster.local:80  # Changed namespace from kube-system to traefik
-        
+        service: http://ghost.ghost.svc.cluster.local:80
+
       - service: http_status:404

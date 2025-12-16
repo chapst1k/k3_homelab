@@ -28,6 +28,9 @@ spec:
       
         - name: server__trustProxy
           value: "true"
+        
+        - name: server__host
+          value: "0.0.0.0"
 
         # Database configuration (must use double underscores)
         - name: database__client
