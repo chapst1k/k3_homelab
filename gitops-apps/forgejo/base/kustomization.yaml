@@ -1,11 +1,3 @@
 resources:
   - namespace.yaml
   - ingress.yaml
-
-helmCharts:
-  - name: forgejo
-    repo: https://codeberg.org/forgejo-contrib/forgejo-helm
-    version: 5.0.0
-    releaseName: forgejo
-    namespace: forgejo
-    valuesFile: values.yaml
