@@ -28,9 +28,9 @@ gitea:
 
   config:
     server:
-      ROOT_URL: https://forgejo.zmartin.me/
-      DOMAIN: forgejo.zmartin.me
-      SSH_DOMAIN: forgejo.zmartin.me
+      ROOT_URL: https://git.zmartin.me/
+      DOMAIN: git.zmartin.me
+      SSH_DOMAIN: git.zmartin.me
 
     database:
       DB_TYPE: postgres
