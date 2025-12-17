@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: oci://code.forgejo.org/forgejo-helm
     chart: forgejo
-    targetRevision: 5.0.0
+    targetRevision: 15.0.3
     helm:
       valueFiles:
         - ../../base/values.yaml
