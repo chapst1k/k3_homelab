@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: technitium-dns
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:chapst1k/k3_homelab.git
+    path: gitops-apps/technitium-dns/overlays/production
+    targetRevision: main
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: dns
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
