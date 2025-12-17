@@ -119,21 +119,21 @@ data:
       # ---------------------------------------------
       # 7. Scrape Technitium DNS
       # ---------------------------------------------
-    - job_name: 'technitium-dns'
-      kubernetes_sd_configs:
-    - role: endpoints
+      - job_name: 'technitium-dns'
+        kubernetes_sd_configs:
+          - role: endpoints
 
-      metrics_path: /metrics
+        metrics_path: /metrics
 
-      relabel_configs:
-    - action: keep
-      source_labels: [__meta_kubernetes_namespace]
-      regex: dns
+        relabel_configs:
+          - action: keep
+            source_labels: [__meta_kubernetes_namespace]
+            regex: dns
 
-    - action: keep
-      source_labels: [__meta_kubernetes_service_name]
-      regex: technitium-dns
+          - action: keep
+            source_labels: [__meta_kubernetes_service_name]
+            regex: technitium-dns
 
-    - action: keep
-      source_labels: [__meta_kubernetes_endpoint_port_name]
-      regex: http
+          - action: keep
+            source_labels: [__meta_kubernetes_endpoint_port_name]
+            regex: http
