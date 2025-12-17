@@ -1,6 +1,6 @@
 image:
   repository: codeberg.org/forgejo/forgejo
-  tag: 15.0.3
+  tag: 13.0.3
 
 postgresql:
   enabled: false
