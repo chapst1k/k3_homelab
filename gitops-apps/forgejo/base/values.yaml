@@ -1,6 +1,6 @@
 image:
   repository: codeberg.org/forgejo/forgejo
-  tag: 7.0.4
+  tag: latest
 
 postgresql:
   enabled: false
