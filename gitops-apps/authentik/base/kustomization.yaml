@@ -1,0 +1,13 @@
+resources:
+- namespace.yaml
+- postgres.yaml
+- secret-authentik.yaml
+- ingress.yaml
+
+helmCharts:
+- name: authentik
+  repo: https://charts.goauthentik.io
+  version: 2024.10.2
+  releaseName: authentik
+  namespace: authentik
+  valuesFile: values.yaml

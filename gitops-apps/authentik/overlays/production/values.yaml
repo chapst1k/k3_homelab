@@ -1,0 +1,14 @@
+authentik:
+  secret_key: ${AUTHENTIK_SECRET_KEY}
+
+server:
+  replicas: 1
+  envFrom:
+  - secretRef:
+      name: authentik-secret
+
+worker:
+  replicas: 1
+  envFrom:
+  - secretRef:
+      name: authentik-secret
