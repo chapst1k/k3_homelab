@@ -66,7 +66,7 @@ env/
 
 # Secrets or values accidentally created locally
 *secret*.yaml
-
+!gitops-apps/**/*sealedsecret*.yaml
 # Local tooling backups
 *.bak
 *.tmp
