@@ -12,3 +12,6 @@ worker:
   envFrom:
   - secretRef:
       name: authentik-secret
+
+redis:
+  enabled: true
