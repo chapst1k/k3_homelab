@@ -6,11 +6,6 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
-  ingressClassName: traefik
-  tls:
-  - hosts:
-    - wiki.zmartin.me
-    secretName: wildcard-zmartin-me-tls
   rules:
   - host: wiki.zmartin.me
     http:
