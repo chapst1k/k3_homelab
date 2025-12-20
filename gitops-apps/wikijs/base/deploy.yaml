@@ -13,6 +13,10 @@ spec:
       labels:
         app: wikijs
     spec:
+      volumes:
+      - name: wikijs-data
+        persistentVolumeClaim:
+          claimName: wikijs-data
       containers:
       - name: wikijs
         image: ghcr.io/requarks/wiki:2
@@ -20,8 +24,16 @@ spec:
         envFrom:
         - secretRef:
             name: wikijs-secret
+        env:
+        - name: STORAGE_TYPE
+          value: local
+        - name: STORAGE_PATH
+          value: /wiki/data
         ports:
         - containerPort: 3000
+        volumeMounts:
+        - name: wikijs-data
+          mountPath: /wiki/data
         readinessProbe:
           httpGet:
             path: /
