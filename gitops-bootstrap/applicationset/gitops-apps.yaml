@@ -9,7 +9,7 @@ spec:
       repoURL: git@github.com:chapst1k/k3_homelab.git
       revision: main
       directories:
-      - path: gitopss-apps/*
+      - path: gitops-apps/*
 
   template:
     metadata:
