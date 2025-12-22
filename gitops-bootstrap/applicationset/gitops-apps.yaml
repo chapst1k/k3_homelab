@@ -9,13 +9,7 @@ spec:
       repoURL: git@github.com:chapst1k/k3_homelab.git
       revision: main
       directories:
-      - path: gitops-apps/grafana
-      - path: gitops-apps/ghost
-      - path: gitops-apps/glance
-      - path: gitops-apps/authentik
-      - path: gitops-apps/cloudflared
-      - path: gitops-apps/mariadb
-      - path: gitops-apps/technitium
+      - path: gitopss-apps/*
 
   template:
     metadata:
