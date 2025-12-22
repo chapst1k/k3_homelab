@@ -16,54 +16,54 @@ spec:
         app: ghost
     spec:
       containers:
-        - name: ghost
-          image: ghost:latest
-          ports:
-            - containerPort: 2368
+      - name: ghost
+        image: ghost:latest
+        ports:
+        - containerPort: 2368
 
-          env:
-            - name: url
-              value: https://zmartin.me
+        env:
+        - name: url
+          value: https://zmartin.me
 
-            - name: server__trustProxy
-              value: "true"
+        - name: server__trustProxy
+          value: "true"
 
-            - name: server__host
-              value: "0.0.0.0"
+        - name: server__host
+          value: "0.0.0.0"
 
-            - name: server__hostname
-              value: zmartin.me
+        - name: server__hostname
+          value: zmartin.me
 
-            - name: server__port
-              value: "2368"
+        - name: server__port
+          value: "2368"
 
-            # Database configuration
-            - name: database__client
-              value: mysql
+        # Database configuration
+        - name: database__client
+          value: mysql
 
-            - name: database__connection__host
-              value: mariadb.default.svc.cluster.local
+        - name: database__connection__host
+          value: mariadb.mariadb.svc.cluster.local
 
-            - name: database__connection__port
-              value: "3306"
+        - name: database__connection__port
+          value: "3306"
 
-            - name: database__connection__database
-              value: ghost
+        - name: database__connection__database
+          value: ghost
 
-            - name: database__connection__user
-              value: ghost
+        - name: database__connection__user
+          value: ghost
 
-            - name: database__connection__password
-              valueFrom:
-                secretKeyRef:
-                  name: mariadb-secret
-                  key: mariadb-password
+        - name: database__connection__password
+          valueFrom:
+            secretKeyRef:
+              name: mariadb-secret
+              key: mariadb-password
 
-          volumeMounts:
-            - name: ghost-content
-              mountPath: /var/lib/ghost/content
+        volumeMounts:
+        - name: ghost-content
+          mountPath: /var/lib/ghost/content
 
       volumes:
-        - name: ghost-content
-          persistentVolumeClaim:
-            claimName: ghost-content
+      - name: ghost-content
+        persistentVolumeClaim:
+          claimName: ghost-content

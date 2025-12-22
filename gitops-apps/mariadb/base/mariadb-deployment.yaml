@@ -13,6 +13,9 @@ spec:
       labels:
         app: mariadb
     spec:
+      securityContext:
+        fsGroup: 1001
+        fsGroupChangePolicy: OnRootMismatch
       containers:
       - name: mariadb
         image: bitnami/mariadb:latest
