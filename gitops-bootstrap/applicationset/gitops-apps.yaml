@@ -12,7 +12,11 @@ spec:
       - path: gitops-apps/grafana
       - path: gitops-apps/ghost
       - path: gitops-apps/glance
-      # wikijs intentionally excluded
+      - path: gitops-apps/authentik
+      - path: gitops-apps/cloudflared
+      - path: gitops-apps/mariadb
+      - path: gitops-apps/technitium
+
   template:
     metadata:
       name: '{{path.basename}}-production'
@@ -24,7 +28,7 @@ spec:
         path: '{{path}}/overlays/production'
       destination:
         server: https://kubernetes.default.svc
-        namespace: default
+        namespace: '{{path.basename}}'
       syncPolicy:
         automated:
           prune: true
