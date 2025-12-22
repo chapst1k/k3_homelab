@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: gitops-apps
+  namespace: argocd
+spec:
+  generators:
+  - git:
+      repoURL: git@github.com:chapst1k/k3_homelab.git
+      revision: main
+      directories:
+      - path: gitops-apps/grafana
+      - path: gitops-apps/ghost
+      - path: gitops-apps/glance
+      # wikijs intentionally excluded
+  template:
+    metadata:
+      name: '{{path.basename}}-production'
+    spec:
+      project: default
+      source:
+        repoURL: git@github.com:chapst1k/k3_homelab.git
+        targetRevision: main
+        path: '{{path}}/overlays/production'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: default
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
