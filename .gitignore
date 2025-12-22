@@ -67,6 +67,7 @@ env/
 # Secrets or values accidentally created locally
 *secret*.yaml
 *-secret.yaml
+mariadb-secret*
 !gitops-apps/**/*sealedsecret*.yaml
 # Local tooling backups
 *.bak
