@@ -56,7 +56,7 @@ spec:
         - name: database__connection__password
           valueFrom:
             secretKeyRef:
-              name: mariadb-secret
+              name: mariadb-sealedsecret
               key: mariadb-password
 
         volumeMounts:
